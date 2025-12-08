@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useState } from "react";
 
@@ -38,20 +39,25 @@ export default function Dock({
 
   return (
     <>
-      {/* Mobile toggle button */}
-      <div className="fixed top-4 left-4 sm:hidden z-50">
-        <button
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="w-14 h-14 rounded-full shadow-lg flex items-center justify-center bg-primary-light dark:bg-primary-medium text-white"
-        >
-          <motion.span
-            animate={{ rotate: mobileOpen ? 45 : 0 }}
-            className="block w-6 h-0.5 bg-white dark:bg-gray-900"
-          />
-        </button>
-      </div>
+<div className="fixed top-4 left-4 sm:hidden z-50">
+  <button
+    onClick={() => setMobileOpen(!mobileOpen)}
+    className="w-14 h-14 rounded-full shadow-lg flex items-center justify-center bg-primary-light dark:bg-primary-medium text-white"
+  >
+    <motion.div
+      initial={false}
+      animate={{ rotate: 0 }}
+      className="flex items-center justify-center"
+    >
+      {mobileOpen ? (
+        <X className="w-6 h-6" />
+      ) : (
+        <Menu className="w-6 h-6" />
+      )}
+    </motion.div>
+  </button>
+</div>
 
-      {/* Mobile left-to-right drawer */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -59,22 +65,20 @@ export default function Dock({
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: -300, opacity: 0 }}
             transition={{ type: "spring", stiffness: 260, damping: 25 }}
-            className="fixed top-0 left-0 h-full w-64 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-lg z-40 flex flex-col items-start py-6 gap-4 sm:hidden"
+            className="fixed top-0 left-0 py-20 h-full w-64 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-lg z-40 flex flex-col items-start py-6 gap-4 sm:hidden"
           >
             {items.map((item, idx) => (
               <motion.button
                 key={idx}
                 onClick={(e) => handleItemClick(item, e)}
                 className={`
-                  flex items-center gap-3 w-full px-4 py-3 rounded-lg
-                  bg-gray-50/80 dark:bg-gray-800/80 text-gray-700 dark:text-gray-300
-                  border border-gray-200/50 dark:border-gray-700/50
-                  shadow-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200
+                  flex items-center gap-3 w-full px-4 py-3 
+                  
                 `}
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
               >
-                <div className="text-lg">{item.icon}</div>
+                <div className="text-lg  text-primary-light dark:text-primary-medium ">{item.icon}</div>
                 <span className="text-base font-medium">{item.label}</span>
               </motion.button>
             ))}
@@ -82,7 +86,6 @@ export default function Dock({
         )}
       </AnimatePresence>
 
-      {/* Desktop bottom dock */}
       <div className="hidden sm:flex fixed bottom-6 left-0 w-full justify-center z-50 pointer-events-none">
         <motion.div
           className={`

@@ -8,7 +8,7 @@ interface CTAButtonsProps {
 }
 
 export default function CTAButtons({
-  cvLink = "/Siddhartha_CV.pdf",
+  cvLink = "/resume.pdf",
   projectsLink = "#projects",
 }: CTAButtonsProps) {
   return (

@@ -20,8 +20,7 @@ export default function ThemeToggle() {
     <div className="fixed top-4 right-4 z-50">
       <button
         onClick={toggleTheme}
-        className="relative flex items-center justify-center w-12 h-12 rounded-full 
-                   bg-primary-medium dark:bg-primary-dark text-white shadow-md overflow-hidden"
+    className="w-14 h-14 rounded-full shadow-lg flex items-center justify-center bg-primary-light dark:bg-primary-medium text-white"
       >
         <AnimatePresence mode="wait">
           {theme === "light" ? (
