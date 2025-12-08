@@ -1,7 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "next-themes";
+import { useState } from "react";
 
 interface DockItem {
   icon: React.ReactNode;
@@ -23,120 +24,110 @@ export default function Dock({
   baseItemSize = 50,
 }: DockProps) {
   const { theme } = useTheme();
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const handleItemClick = (item: DockItem, e: React.MouseEvent) => {
+    if (item.href) {
+      e.preventDefault();
+      const element = document.querySelector(item.href);
+      if (element) element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    item.onClick?.();
+    setMobileOpen(false);
+  };
 
   return (
-    <div className="fixed bottom-4 sm:bottom-6 left-0 w-full flex justify-center z-50 pointer-events-none">
-      <motion.div
-        className={`
-          pointer-events-auto flex items-end gap-2 sm:gap-3
-          rounded-[24px]
-          border border-gray-200/60 dark:border-gray-700/40
-          bg-white/80 dark:bg-gray-900/90
-          backdrop-blur-2xl
-          shadow-[0_8px_32px_rgba(0,0,0,0.08),0_1px_2px_rgba(0,0,0,0.04)]
-          dark:shadow-[0_8px_32px_rgba(0,0,0,0.8),0_1px_2px_rgba(0,0,0,0.5)]
-          px-3 py-2.5 sm:px-4 sm:py-3
-        `}
-        style={{ height: panelHeight }}
-        initial={{ y: 100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ type: "spring", stiffness: 260, damping: 20 }}
-      >
-        {items.map((item, index) => {
-          const handleClick = (e: React.MouseEvent) => {
-            if (item.href) {
-              e.preventDefault();
-              const element = document.querySelector(item.href);
-              if (element) {
-                element.scrollIntoView({ behavior: "smooth", block: "start" });
-              }
-            }
-            item.onClick?.();
-          };
+    <>
+      {/* Mobile toggle button */}
+      <div className="fixed top-4 left-4 sm:hidden z-50">
+        <button
+          onClick={() => setMobileOpen(!mobileOpen)}
+          className="w-14 h-14 rounded-full shadow-lg flex items-center justify-center bg-primary-light dark:bg-primary-medium text-white"
+        >
+          <motion.span
+            animate={{ rotate: mobileOpen ? 45 : 0 }}
+            className="block w-6 h-0.5 bg-white dark:bg-gray-900"
+          />
+        </button>
+      </div>
 
-          const Component = item.href ? motion.a : motion.button;
-          const componentProps = item.href ? { href: item.href } : {};
+      {/* Mobile left-to-right drawer */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ x: -300, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: -300, opacity: 0 }}
+            transition={{ type: "spring", stiffness: 260, damping: 25 }}
+            className="fixed top-0 left-0 h-full w-64 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-lg z-40 flex flex-col items-start py-6 gap-4 sm:hidden"
+          >
+            {items.map((item, idx) => (
+              <motion.button
+                key={idx}
+                onClick={(e) => handleItemClick(item, e)}
+                className={`
+                  flex items-center gap-3 w-full px-4 py-3 rounded-lg
+                  bg-gray-50/80 dark:bg-gray-800/80 text-gray-700 dark:text-gray-300
+                  border border-gray-200/50 dark:border-gray-700/50
+                  shadow-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200
+                `}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+              >
+                <div className="text-lg">{item.icon}</div>
+                <span className="text-base font-medium">{item.label}</span>
+              </motion.button>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-          return (
-            <Component
+      {/* Desktop bottom dock */}
+      <div className="hidden sm:flex fixed bottom-6 left-0 w-full justify-center z-50 pointer-events-none">
+        <motion.div
+          className={`
+            pointer-events-auto flex items-end gap-3
+            rounded-[24px]
+            border border-gray-200/60 dark:border-gray-700/40
+            bg-white/80 dark:bg-gray-900/90
+            backdrop-blur-2xl px-3 py-2.5
+            shadow-[0_8px_32px_rgba(0,0,0,0.08),0_1px_2px_rgba(0,0,0,0.04)]
+            dark:shadow-[0_8px_32px_rgba(0,0,0,0.8),0_1px_2px_rgba(0,0,0,0.5)]
+          `}
+          style={{ height: panelHeight }}
+          initial={{ y: 100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ type: "spring", stiffness: 260, damping: 20 }}
+        >
+          {items.map((item, index) => (
+            <motion.button
               key={index}
-              onClick={handleClick}
+              onClick={(e) => handleItemClick(item, e)}
               style={{ width: baseItemSize, height: baseItemSize }}
-              {...componentProps}
               className={`
                 relative flex flex-col items-center justify-center gap-0.5
                 rounded-[16px] border transition-all duration-200
-                ${
-                  item.isActive
-                    ? "border-primary-medium/60 dark:border-primary-dark/60 bg-primary-light/15 dark:bg-primary-dark/40"
-                    : "border-gray-200/50 dark:border-gray-700/40 bg-gray-50/60 dark:bg-gray-800/60 hover:bg-gray-100/80 dark:hover:bg-gray-700/70"
+                ${item.isActive
+                  ? "border-primary-medium/60 dark:border-primary-dark/60 bg-primary-light/15 dark:bg-primary-dark/40"
+                  : "border-gray-200/50 dark:border-gray-700/40 bg-gray-50/60 dark:bg-gray-800/60 hover:bg-gray-100/80 dark:hover:bg-gray-700/70"
                 }
-                backdrop-blur-xl shadow-sm hover:shadow-md
-                cursor-pointer select-none group overflow-visible
+                backdrop-blur-xl shadow-sm hover:shadow-md cursor-pointer select-none group overflow-visible
               `}
               whileHover={{ y: -4, scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               transition={{ type: "spring", stiffness: 400, damping: 25 }}
             >
-              {/* Glow effect on hover */}
-              <div
-                className={`
-                  absolute inset-0 rounded-[16px] opacity-0 group-hover:opacity-100 transition-opacity duration-300
-                  ${
-                    theme === "dark"
-                      ? "bg-gradient-to-br from-primary-light/15 via-primary-medium/8 to-transparent"
-                      : "bg-gradient-to-br from-primary-light/20 via-transparent to-transparent"
-                  }
-                `}
-              />
-
-              {/* Active indicator */}
-              {item.isActive && (
-                <motion.div
-                  className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-6 h-0.5 rounded-full bg-primary-deep dark:bg-primary-light"
-                  layoutId="activeIndicator"
-                  transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                />
-              )}
-
-              {/* Label tooltip */}
-              <motion.span
-                initial={{ opacity: 0, y: 10, scale: 0.9 }}
-                whileHover={{ opacity: 1, y: -10, scale: 1 }}
-                transition={{ duration: 0.2, ease: "easeOut" }}
-                className={`
-                  absolute -top-12 left-1/2 -translate-x-1/2
-                  whitespace-nowrap rounded-xl
-                  px-3 py-1.5 text-xs font-medium
-                  ${theme === "dark"
-                    ? "bg-gray-900/95 text-white border border-gray-700/50"
-                    : "bg-white/95 text-gray-900 border border-gray-200/50"}
-                  backdrop-blur-xl shadow-lg pointer-events-none
-                  after:content-[''] after:absolute after:top-full after:left-1/2 
-                  after:-translate-x-1/2 after:border-[5px] after:border-transparent
-                  ${
-                    theme === "dark"
-                      ? "after:border-t-gray-900/95"
-                      : "after:border-t-white/95"
-                  }
-                `}
-              >
-                {item.label}
-              </motion.span>
-
-              <div
-                className={`relative z-10 transition-colors ${
-                  item.isActive
-                    ? "text-primary-deep dark:text-primary-light"
-                    : "text-gray-700 dark:text-gray-300 group-hover:text-primary-dark dark:group-hover:text-primary-light"
-                }`}
-              >
+              <div className={`relative z-10 transition-colors ${
+                item.isActive
+                  ? "text-primary-deep dark:text-primary-light"
+                  : "text-gray-700 dark:text-gray-300 group-hover:text-primary-dark dark:group-hover:text-primary-light"
+              }`}>
                 {item.icon}
               </div>
-            </Component>
-          );
-        })}
-      </motion.div>
-    </div>
+            </motion.button>
+          ))}
+        </motion.div>
+      </div>
+    </>
   );
 }

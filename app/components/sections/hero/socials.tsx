@@ -25,8 +25,8 @@ export default function SocialLinks() {
         gap-3 sm:gap-4 md:gap-5
         mt-4 sm:mt-0
         md:fixed md:right-3 md:top-1/2 md:-translate-y-1/2
-        w-full sm:w-auto
-        z-50
+        w-full sm:w-auto 
+        md:z-50
       "
     >
       {links.map((item, i) => (
