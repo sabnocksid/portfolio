@@ -28,12 +28,12 @@ export default function Dock({
       <motion.div
         className="
           pointer-events-auto flex items-end gap-3
-          rounded-[24px] border
-          border-gray-200/60 dark:border-white/15
-          bg-white/80 dark:bg-black/50
+          rounded-[24px] 
+          border border-gray-200/60 dark:border-gray-700/40
+          bg-white/80 dark:bg-gray-900/90
           backdrop-blur-2xl 
           shadow-[0_8px_32px_rgba(0,0,0,0.08),0_1px_2px_rgba(0,0,0,0.04)]
-          dark:shadow-[0_8px_32px_rgba(0,0,0,0.6),0_1px_2px_rgba(0,0,0,0.3)]
+          dark:shadow-[0_8px_32px_rgba(0,0,0,0.8),0_1px_2px_rgba(0,0,0,0.5)]
           px-3 py-2.5
         "
         style={{ height: panelHeight }}
@@ -67,8 +67,8 @@ export default function Dock({
                 rounded-[16px] border transition-all duration-200
                 ${
                   item.isActive
-                    ? 'border-primary-medium/50 dark:border-primary-light/50 bg-primary-light/10 dark:bg-primary-deep/30'
-                    : 'border-gray-200/40 dark:border-white/10 bg-gray-50/50 dark:bg-white/5 hover:bg-gray-100/70 dark:hover:bg-white/10'
+                    ? 'border-primary-medium/60 dark:border-primary-dark/60 bg-primary-light/15 dark:bg-primary-dark/40'
+                    : 'border-gray-200/50 dark:border-gray-700/40 bg-gray-50/60 dark:bg-gray-800/60 hover:bg-gray-100/80 dark:hover:bg-gray-700/70'
                 }
                 backdrop-blur-xl shadow-sm hover:shadow-md
                 cursor-pointer select-none group
@@ -81,7 +81,7 @@ export default function Dock({
               {/* Glow effect on hover */}
               <div className={`
                 absolute inset-0 rounded-[16px] opacity-0 group-hover:opacity-100 transition-opacity duration-300
-                ${theme === 'dark' ? 'bg-gradient-to-br from-primary-light/10 via-primary-medium/5 to-transparent' : 'bg-gradient-to-br from-primary-light/20 via-transparent to-transparent'}
+                ${theme === 'dark' ? 'bg-gradient-to-br from-primary-light/15 via-primary-medium/8 to-transparent' : 'bg-gradient-to-br from-primary-light/20 via-transparent to-transparent'}
               `} />
 
               {/* Active indicator - positioned below the icon */}
@@ -121,7 +121,7 @@ export default function Dock({
               <div className={`relative z-10 transition-colors ${
                 item.isActive 
                   ? 'text-primary-deep dark:text-primary-light' 
-                  : 'text-gray-700 dark:text-gray-200 group-hover:text-primary-dark dark:group-hover:text-primary-light'
+                  : 'text-gray-700 dark:text-gray-300 group-hover:text-primary-dark dark:group-hover:text-primary-light'
               }`}>
                 {item.icon}
               </div>

@@ -27,7 +27,7 @@ export default function FlickerGrid({
     for (let i = 0; i < rows * cols; i++) {
       arr.push(Math.random() * maxOpacity);
     }
-    return arr;s
+    return arr;
   }, [rows, cols, maxOpacity]);
 
   return (

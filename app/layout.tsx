@@ -3,6 +3,7 @@
 import { ThemeProvider } from "next-themes";
 import localFont from "next/font/local";
 import "./globals.css";
+import { ReactNode } from "react";
 
 const manrope = localFont({
   src: [
@@ -17,7 +18,11 @@ const manrope = localFont({
   variable: "--font-manrope",
 });
 
-export default function RootLayout({ children }) {
+interface RootLayoutProps {
+  children: ReactNode;
+}
+
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" className={manrope.variable} suppressHydrationWarning>
       <body>
