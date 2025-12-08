@@ -8,7 +8,7 @@ export default function HeroIntro() {
     <div className="text-center space-y-4">
   <BubbleName />
 
-      <p className="text-2xl font-semibold text-center font-light text-neutral-gray dark:text-neutral-gray">
+      <p className="text-lg  md:text-2xl font-semibold text-center font-light text-neutral-gray dark:text-neutral-gray">
         Fullstack Developer Based in Kathmandu
       </p>
     </div>

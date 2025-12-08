@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 
 const text = "Hi There, I'm Siddhartha!";
@@ -11,7 +11,17 @@ const nameEndIndex = nameStartIndex + name.length - 1;
 
 export default function BubbleText() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [isSmallScreen, setIsSmallScreen] = useState(true);
   const { theme } = useTheme();
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth < 768); 
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <div className="inline-flex text-3xl md:text-5xl flex-wrap font-manrope">
@@ -19,24 +29,34 @@ export default function BubbleText() {
         const isName = idx >= nameStartIndex && idx <= nameEndIndex;
 
         const outlineColor = isName
-          ? "#1b614a" // primary deep outline
+          ? "#1b614a"
           : theme === "dark"
           ? "white"
           : "black";
 
-        // --- INITIAL FILL COLOR ---
-        let fill = isName ? "#1b614a" : "transparent"; 
-        let weight = isName ? "font-normal" : "font-thin";
+        let fill = isName
+          ? "#1b614a"
+          : isSmallScreen
+          ? theme === "dark"
+            ? "white"
+            : "black"
+          : "transparent";
 
-        // --- HOVER EFFECT LOGIC ---
+        let weight = isName
+          ? "font-semibold md:font-normal"
+          : isSmallScreen
+          ? "font-semibold"
+          : "font-thin md:font-thin";
+
+        // Hover effects
         if (hoveredIndex === idx) {
-          fill = "#1b614a"; // deep
+          fill = "#1b614a";
           weight = "font-extrabold";
         } else if (hoveredIndex === idx - 1 || hoveredIndex === idx + 1) {
-          fill = "#325c4b"; // dark
+          fill = "#325c4b";
           weight = "font-semibold";
         } else if (hoveredIndex === idx - 2 || hoveredIndex === idx + 2) {
-          fill = "#6d8f79"; // light
+          fill = "#6d8f79";
           weight = "font-medium";
         }
 
