@@ -34,12 +34,9 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* ------------------- */
-/* LIGHT THEME (default) */
-/* ------------------- */
+
 .bg-page { background-color: #f8f8f8; }
 .bg-card { background-color: #ffffff; }
-.text-black { color: #222222; }
 .text-neutral-gray { color: #aaaaaa; }
 .text-primary-light { color: #6d8f79; }
 .text-primary-medium { color: #4c745f; }
@@ -54,12 +51,9 @@ body {
 .border-primary-dark { border-color: #325c4b; }
 .border-primary-deep { border-color: #1b614a; }
 
-/* ------------------- */
-/* DARK THEME */
-/* ------------------- */
+
 .dark .bg-page { background-color: #1b1b1b; }
 .dark .bg-card { background-color: #2c2c2c; }
-.dark .text-white { color: #ffffff; }
 .dark .text-neutral-gray { color: #cccccc; }
 .dark .text-primary-light { color: #6d8f79; }
 .dark .text-primary-medium { color: #4c745f; }
@@ -73,5 +67,23 @@ body {
 .dark .border-primary-medium { border-color: #4c745f; }
 .dark .border-primary-dark { border-color: #325c4b; }
 .dark .border-primary-deep { border-color: #1b614a; }
+
+
+
+
+
+::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
+
+* {
+  scrollbar-width: none; 
+  scrollbar-color: transparent transparent; 
+}
+
+body {
+  -ms-overflow-style: none;
+}
 
 
