@@ -21,9 +21,9 @@ export default function ProfileImage({
         alt={alt}
         className="
           h-full w-full object-cover
-          filter grayscale
+          filter grayscale translate-y-1
           transition-all duration-300 ease-in-out
-          hover:scale-95 hover:grayscale-0
+          hover:scale-95
         "
       />
     </div>
