@@ -46,7 +46,6 @@ const dockItems = [
     <div className="min-h-screen flex flex-col items-center justify-center
                     bg-page dark:bg-[#1b1b1b] text-black dark:text-white
                     transition-colors duration-300 font-manrope">
-<ThemeToggle />
 <Dock items={dockItems} />
       <Hero />
     </div>

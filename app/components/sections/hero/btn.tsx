@@ -1,37 +1,61 @@
 "use client";
 
+import { ArrowBigDown, ChevronDown, ChevronDownCircle } from "lucide-react";
 import React from "react";
 
 interface HoverButtonProps {
-  href?: string; // optional href for navigation
-  id?: string;   // optional id for scrolling
+  href?: string;
+  id?: string;
 }
 
 export default function HoverButton({ href, id }: HoverButtonProps) {
   const ButtonContent = (
-    <div className="group relative w-auto cursor-pointer overflow-hidden rounded-full border border-gray-200 bg-primary-deep px-8 py-4 text-center font-medium text-gray-900 shadow-sm transition-all duration-300 hover:shadow-md dark:border-gray-800  dark:text-white dark:hover:primary-deep">
+    <div
+      className="
+        group relative cursor-pointer overflow-hidden md:rounded-full 
+        border border-gray-200 bg-primary-deep 
+        px-6 py-3  sm:py-4 md:px-10 md:py-4
+        text-center font-bold text-gray-900 shadow-md
+        transition-all duration-300 hover:shadow-lg 
+        dark:border-gray-800 dark:text-white 
+      "
+    >
       <div className="flex items-center gap-3">
-        <div className="h-2 w-2 rounded-full bg-primary-light transition-all duration-300 group-hover:scale-[100.8]"></div>
-        <span className="inline-block transition-all duration-300 group-hover:translate-x-12 group-hover:opacity-0">
+        <div
+          className="
+            h-2 w-2 sm:h-3 sm:w-3 rounded-full bg-primary-light 
+            transition-all duration-300 
+            group-hover:scale-110 
+          "
+        ></div>
+
+        <span
+          className="
+            inline-block text-sm sm:text-base md:text-md 
+            transition-all duration-300 
+            group-hover:translate-x-5 group-hover:opacity-0 font-bold
+          "
+        >
           View Projects
         </span>
       </div>
 
-      <div className="absolute top-0 z-10 flex h-full w-full translate-x-12 items-center justify-center gap-3 bg-gray-900 text-white opacity-0 transition-all duration-300 group-hover:-translate-x-5 group-hover:opacity-100 dark:bg-gray-100 dark:text-gray-900">
+      <div
+        className="
+          absolute inset-0 z-10 flex items-center justify-center 
+          translate-x-5 opacity-0
+          bg-gray-900/90 text-primary-deep bg-card 
+          transition-all duration-300 
+          group-hover:translate-x-0 group-hover:opacity-100
+        "
+      >
         <div className="flex items-center gap-3 whitespace-nowrap">
-          <span className="leading-none font-medium">View Projects</span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-4 w-4 leading-none"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2.5}
-            aria-hidden="true"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M3 12h14" />
-            <path strokeLinecap="round" strokeLinejoin="round" d="M13 6l6 6-6 6" />
-          </svg>
+          <span className=" font-bold leading-none text-sm sm:text-base md:text-lg">
+            View Projects
+          </span>
+
+
+          <ChevronDownCircle/>
         </div>
       </div>
     </div>

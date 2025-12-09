@@ -12,8 +12,8 @@ export default function ProfileImage({
   return (
     <div
       className="
-        rounded-full bg-primary-light overflow-hidden flex items-center justify-center shadow-lg
-        w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 lg:w-36 lg:h-36
+        rounded-md border-3 border-primary-medium md:rounded-full bg-primary-light overflow-hidden flex items-center justify-center shadow-lg
+        w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 lg:w-36 lg:h-36 
       "
     >
       <img
