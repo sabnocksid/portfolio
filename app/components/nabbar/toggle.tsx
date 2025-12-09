@@ -31,14 +31,12 @@ export default function ThemeToggle() {
           className="absolute opacity-0 w-0 h-0"
         />
 
-        {/* Toggle background */}
         <div
           className={`absolute inset-0 rounded-full transition-colors duration-200 ${
             checked ? "bg-gray-800" : "bg-gray-200"
           }`}
         ></div>
 
-        {/* Slider */}
         <motion.div
           className="absolute top-[2px] left-[2px] w-6 h-6 sm:w-7 sm:h-7 rounded-full shadow-md z-10"
           animate={{ x: checked ? 28 : 0 }}
