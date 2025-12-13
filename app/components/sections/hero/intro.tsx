@@ -26,7 +26,7 @@ export default function HeroIntro() {
           >
             <motion.span
               whileHover={{ scale: 1.05 }}
-              className="inline-block px-4 py-2 text-base font-bold text-primary-medium bg-[#6d8f79]/20 rounded-sm
+              className="inline-block px-4 py-2 text-base font-bold text-primary-medium bg-[#2f4fa3]/20 rounded-sm
                        transition-all duration-300 cursor-default
                        shadow-sm hover:shadow-md"
             >

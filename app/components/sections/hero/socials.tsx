@@ -16,8 +16,8 @@ export default function SocialLinks() {
         <HolographicIcon
           key={i}
           Icon={item.icon}
-          color="#4c745f"
-          hoverColor="#1b614a"
+          color="#2f4fa3"
+          hoverColor="#6495ed"
           href={item.href}
         />
       ))}

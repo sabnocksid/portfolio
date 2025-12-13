@@ -19,13 +19,13 @@ export default function BubbleText() {
         const isName = idx >= nameStartIndex && idx <= nameEndIndex;
 
         const outlineColor = isName
-          ? "#1b614a"
+          ? "#4a73c9"
           : theme === "dark"
           ? "white"
           : "black";
 
         let fill = isName
-          ? "#1b614a"
+          ? "#4a73c9"
           : theme === "dark"
           ? "white"
           : "black";
@@ -33,13 +33,13 @@ export default function BubbleText() {
         let weight = isName ? "font-semibold md:font-normal" : "font-thin md:font-thin";
 
         if (hoveredIndex === idx) {
-          fill = "#1b614a";
+          fill = "#2f4fa3";
           weight = "font-extrabold";
         } else if (hoveredIndex === idx - 1 || hoveredIndex === idx + 1) {
-          fill = "#325c4b";
+          fill = "#4a73c9";
           weight = "font-semibold";
         } else if (hoveredIndex === idx - 2 || hoveredIndex === idx + 2) {
-          fill = "#6d8f79";
+          fill = "#6495ed";
           weight = "font-medium";
         }
 

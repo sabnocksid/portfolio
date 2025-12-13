@@ -106,7 +106,7 @@ export default function PillNavbar({ items }: NavbarProps) {
           </div>
           <button
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="w-10 h-10 flex items-center justify-center rounded-full bg-primary-light"
+            className="w-10 h-10 flex items-center justify-center rounded-full bg-primary-deep"
           >
             {theme === "dark" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
           </button>
