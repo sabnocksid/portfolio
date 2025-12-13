@@ -4,7 +4,6 @@ import Hero from "./components/sections/hero";
 import Dock from "./components/nabbar/navbar";
 
 import { Home, User, FolderKanban, Mail, ContactIcon, HomeIcon } from "lucide-react";
-import ThemeToggle from "./components/nabbar/toggle";
 
 export default function HomePage() {
   const [mounted, setMounted] = useState(false);
@@ -14,7 +13,7 @@ const dockItems = [
   {
     icon: <HomeIcon />,
     label: "Home",
-    href: "#home",
+    href: "/",
     isActive: activeSection === "#home"
   },
   {
@@ -47,7 +46,11 @@ const dockItems = [
                     bg-page dark:bg-[#1b1b1b] text-black dark:text-white
                     transition-colors duration-300 font-manrope">
 <Dock items={dockItems} />
+
       <Hero />
+<section id="about"></section>
+<section id="projects"></section>
+<section id="contact"></section>
     </div>
   );
 }
