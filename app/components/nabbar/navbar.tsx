@@ -31,10 +31,8 @@ export default function PillNavbar({ items }: NavbarProps) {
     const updateActive = () => {
       let current = "/";
 
-      // If hash exists, prefer section detection
       items.forEach((item) => {
         if (!item.href || !item.href.startsWith("#")) return;
-
         const el = document.querySelector(item.href);
         if (!el) return;
 
@@ -44,11 +42,7 @@ export default function PillNavbar({ items }: NavbarProps) {
         }
       });
 
-      // Home route
-      if (pathname !== "/") {
-        current = "";
-      }
-
+      if (pathname !== "/") current = "";
       setActive(current);
     };
 
@@ -62,19 +56,15 @@ export default function PillNavbar({ items }: NavbarProps) {
     };
   }, [items, pathname]);
 
-  /* ===========================
-     Navigation Handler
-  ============================ */
+
   const handleNavClick = (href?: string) => {
     if (!href) return;
 
-    // Home → real route
     if (href === "/") {
       window.location.href = "/";
       return;
     }
 
-    // Hash navigation
     const section = document.querySelector(href);
     section?.scrollIntoView({ behavior: "smooth", block: "start" });
     window.history.pushState(null, "", href);
@@ -84,9 +74,8 @@ export default function PillNavbar({ items }: NavbarProps) {
 
   return (
     <>
-      {/* ================= Desktop Navbar ================= */}
       <div className="hidden md:block fixed top-4 left-1/2 -translate-x-1/2 w-[92%] max-w-3xl z-50">
-        <div className="flex items-center justify-between px-4 py-2 rounded-full border border-primary-medium/30 bg-card/80 backdrop-blur-xl shadow-lg">
+        <div className="flex items-center justify-between px-4 py-2 rounded-full border border-primary-deep bg-card opacity-90 backdrop-blur-xl shadow-lg">
           <ResponsiveLogo />
 
           <div className="flex items-center gap-2">
@@ -100,17 +89,17 @@ export default function PillNavbar({ items }: NavbarProps) {
                   className="relative px-3 py-2 text-sm font-semibold"
                 >
                   <span
-                    className={`relative z-10 flex items-center gap-1.5 transition-colors ${
-                      isActive
-                        ? "text-primary-deep"
-                        : "text-neutral-gray hover:text-primary-deep"
-                    }`}
+                    className={`relative z-10 flex items-center gap-1.5 transition-colors duration-200
+                      ${
+                        isActive
+                          ? "text-primary-deep"
+                          : "text-neutral-gray hover:text-primary-deep"
+                      }`}
                   >
                     {item.icon}
                     {item.label}
                   </span>
 
-                  {/* Active underline */}
                   {isActive && (
                     <motion.span
                       layoutId="active-line"
@@ -119,7 +108,6 @@ export default function PillNavbar({ items }: NavbarProps) {
                     />
                   )}
 
-                  {/* Hover underline */}
                   {!isActive && (
                     <motion.span
                       initial={{ opacity: 0, scaleX: 0 }}
@@ -142,7 +130,6 @@ export default function PillNavbar({ items }: NavbarProps) {
         </div>
       </div>
 
-      {/* ================= Mobile Top Bar ================= */}
       <div className="md:hidden fixed top-4 inset-x-4 z-50 flex justify-between items-center">
         <ResponsiveLogo />
         <button
@@ -153,7 +140,6 @@ export default function PillNavbar({ items }: NavbarProps) {
         </button>
       </div>
 
-      {/* ================= Backdrop ================= */}
       <AnimatePresence>
         {drawerOpen && (
           <motion.div
@@ -166,7 +152,6 @@ export default function PillNavbar({ items }: NavbarProps) {
         )}
       </AnimatePresence>
 
-      {/* ================= Mobile Drawer ================= */}
       <motion.div
         initial={{ y: "100%" }}
         animate={{ y: drawerOpen ? 0 : "100%" }}
@@ -201,11 +186,11 @@ export default function PillNavbar({ items }: NavbarProps) {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: i * 0.05 }}
-                className={`relative flex items-center gap-4 px-4 py-3 rounded-xl font-semibold text-lg
+                className={`relative flex items-center gap-4 px-4 py-3 rounded-xl font-semibold text-lg transition-colors
                   ${
                     isActive
                       ? "bg-primary-medium/25 text-primary-deep"
-                      : "text-neutral-gray hover:bg-primary-medium/15"
+                      : "text-neutral-gray hover:text-primary-deep hover:bg-primary-medium/15"
                   }`}
               >
                 {isActive && (

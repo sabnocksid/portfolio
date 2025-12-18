@@ -34,7 +34,7 @@ export const metadata = {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" className={manrope.variable} suppressHydrationWarning>
-      <body className="font-manrope bg-white dark:bg-black">
+      <body className="font-manrope bg-page">
         <ThemeProvider attribute="class" defaultTheme="light">
           {children}
         </ThemeProvider>

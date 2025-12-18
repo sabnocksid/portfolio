@@ -1,9 +1,7 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+
+
 
 @theme inline {
   --color-background: var(--background);
@@ -35,14 +33,13 @@ body {
 }
 
 
-/* Light mode */
 .bg-page { background-color: #f6f8fc; }
 .bg-card { background-color: #ffffff; }
 
 .text-neutral-gray { color: #9aa3b2; }
 
 .text-primary-light { color: #8fa8e8; }
-.text-primary-medium { color: #6495ed; } /* cornflower blue */
+.text-primary-medium { color: #6495ed; } 
 .text-primary-dark { color: #4a73c9; }
 .text-primary-deep { color: #2f4fa3; }
 

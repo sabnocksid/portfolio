@@ -4,6 +4,7 @@ import Hero from "./components/sections/hero";
 import Dock from "./components/nabbar/navbar";
 
 import { Home, User, FolderKanban, Mail, ContactIcon, HomeIcon } from "lucide-react";
+import AboutSection from "./components/sections/about";
 
 export default function HomePage() {
   const [mounted, setMounted] = useState(false);
@@ -43,12 +44,14 @@ const dockItems = [
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center
-                    bg-page dark:bg-[#1b1b1b] text-black dark:text-white
+                    bg-page  text-black dark:text-white
                     transition-colors duration-300 font-manrope">
 <Dock items={dockItems} />
 
       <Hero />
-<section id="about"></section>
+<section id="about">
+  <AboutSection />
+</section>
 <section id="projects"></section>
 <section id="contact"></section>
     </div>
