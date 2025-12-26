@@ -29,12 +29,10 @@ export default function Hero() {
 
       <VerticalSocialLinks heroRef={heroRef} />
 
-      {/* Hero Intro */}
       <div className="mt-2 md:mt-6">
         <HeroIntro />
       </div>
 
-      {/* CTA Buttons */}
       <div className="md:mt-8 flex flex-wrap justify-center gap-4">
         <CTAButtons />
       </div>

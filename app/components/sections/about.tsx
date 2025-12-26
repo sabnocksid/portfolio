@@ -1,19 +1,30 @@
 "use client";
 
+import Profile from "./about/aboutTexts";
+import ImageCardWithLogo from "./about/card";
 import Halftone from "./about/halftone";
+import WorkExperienceTimeline from "./about/timeLine";
 
 export default function AboutSection() {
   return (
-    <section className="relative w-full h-screen px-4 overflow-hidden flex items-center justify-center">
-      
-      <Halftone rows={22} cols={36} imageSrc="/sid.svg"/>
+    <section className="flex flex-col">
+ <div className="relative w-full min-h-screen px-[100px] flex items-center gap-16">
+   
+      <div className="flex-1 space-y-10">
 
-      <img 
-        src="/sid.png" 
-        alt="About Image" 
-        className="absolute w-32 h-32 object-contain" 
-        style={{ zIndex: 10 }}
-      />
+    <Profile />
+
+      </div>
+
+      <div className="flex-1 flex justify-center md:justify-end">
+        <ImageCardWithLogo />
+      </div>
+  </div>  
+  <div>
+    <WorkExperienceTimeline />
+
+  </div>
+
     </section>
   );
 }

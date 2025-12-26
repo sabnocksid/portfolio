@@ -36,7 +36,13 @@ body {
 .bg-page { background-color: #f6f8fc; }
 .bg-card { background-color: #ffffff; }
 
+.text-substitute {color:#f6f8fc}
+.dark .text-substitute {color:#121826}
+
+
 .text-neutral-gray { color: #9aa3b2; }
+.text-primary {color:#0a0a0a}
+.dark .text-primary {color:#c2c8d6}
 
 .text-primary-light { color: #8fa8e8; }
 .text-primary-medium { color: #6495ed; } 
