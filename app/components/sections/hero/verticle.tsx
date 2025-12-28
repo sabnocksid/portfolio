@@ -32,7 +32,7 @@ export default function VerticalSocialLinks({ heroRef }: VerticalSocialLinksProp
     };
 
     window.addEventListener("scroll", handleScroll);
-    handleScroll(); // initial check
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, [heroRef, isMobile]);
 
@@ -42,7 +42,6 @@ export default function VerticalSocialLinks({ heroRef }: VerticalSocialLinksProp
     { href: "https://www.linkedin.com/in/sid-harth-poudel/", icon: Linkedin, label: "LinkedIn" },
   ];
 
-  // Mobile view
   if (isMobile) {
     return (
       <div className="flex justify-center gap-4 mt-6">
@@ -88,7 +87,6 @@ export default function VerticalSocialLinks({ heroRef }: VerticalSocialLinksProp
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: i * 0.1, type: "spring", stiffness: 120 }}
               >
-                {/* Vertical label */}
                 <div className="flex flex-col items-center text-sm font-bold leading-4">
                   {link.label.split("").map((char, idx) => (
                     <span key={idx} className="rotate-90 hidden md:block">
