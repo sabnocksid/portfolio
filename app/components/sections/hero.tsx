@@ -6,6 +6,7 @@ import HeroIntro from "./hero/intro";
 import CTAButtons from "./hero/cta";
 import FlickerGrid from "./hero/bg-overlay";
 import VerticalSocialLinks from "./hero/verticle";
+import SocialLinks from "./hero/socials";
 
 export default function Hero() {
   const heroRef = useRef<HTMLElement>(null);

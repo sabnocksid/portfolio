@@ -1,9 +1,28 @@
 "use client";
 
-// ===================== AboutMe Component =====================
-const AboutMe = ({ name, bio }) => (
+import React from "react";
+
+// Props interfaces
+interface AboutMeProps {
+  name: string;
+  bio: string;
+}
+
+interface EducationProps {
+  degree: string;
+  university: string;
+  years: string;
+  description: string;
+}
+
+interface SkillsProps {
+  skills: string[];
+}
+
+// Components
+const AboutMe: React.FC<AboutMeProps> = ({ name, bio }) => (
   <div>
-    <h2 className="text-primary text-2xl md:text-5xl font-bold mb-4">
+    <h2 className="text-primary text-xl md:text-5xl font-bold mb-4">
       <span className="text-primary-deep">About </span>Me
     </h2>
     <p className="text-primary text-md md:text-xl leading-relaxed">
@@ -12,32 +31,30 @@ const AboutMe = ({ name, bio }) => (
   </div>
 );
 
-// ===================== Education Component =====================
-const Education = ({ degree, university, years, description }) => (
+const Education: React.FC<EducationProps> = ({ degree, university, years, description }) => (
   <div className="mt-8">
-    <h3 className="text-primary-deep text-2xl font-semibold mb-4">
+    <h3 className="text-primary-deep text-md md:text-2xl font-semibold mb-4">
       Education
     </h3>
     <div className="space-y-1">
-      <p className="text-primary text-lg font-medium">{degree}</p>
+      <p className="text-primary text-base md:text-lg font-medium">{degree}</p>
       <p className="text-primary-deep text-base">{university}</p>
-      <p className="text-primary-medium text-sm">{years}</p>
+      <p className="text-primary-medium text-sm md:text-sm">{years}</p>
       <p className="text-primary-medium text-base mt-2 leading-relaxed">{description}</p>
     </div>
   </div>
 );
 
-// ===================== Skills Component =====================
-const Skills = ({ skills }) => (
+const Skills: React.FC<SkillsProps> = ({ skills }) => (
   <div className="mt-8">
-    <h3 className="text-primary-deep text-2xl font-semibold mb-4">
+    <h3 className="text-primary-deep text-md md:text-2xl font-semibold mb-4">
       Familiar Technologies
     </h3>
     <div className="flex flex-wrap gap-3">
       {skills.map((skill) => (
         <span
           key={skill}
-          className="px-4 py-2 text-sm rounded-full bg-primary-medium text-substitute font-medium"
+          className="px-4 py-2 text-xs md:text-sm rounded-full bg-primary-medium text-substitute font-medium"
         >
           {skill}
         </span>
@@ -46,6 +63,7 @@ const Skills = ({ skills }) => (
   </div>
 );
 
+// Profile component
 export default function Profile() {
   const profileData = {
     name: "Siddhartha Paudel (Sid)",
@@ -73,7 +91,7 @@ export default function Profile() {
   };
 
   return (
-    <section className="">
+    <section className="px-4 sm:px-6 lg:px-16">
       <AboutMe name={profileData.name} bio={profileData.bio} />
       <Education {...profileData.education} />
       <Skills skills={profileData.skills} />
