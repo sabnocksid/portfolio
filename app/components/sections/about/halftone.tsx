@@ -22,6 +22,8 @@ export default function Halftone({
 
   const size = useRef({ width: 0, height: 0 });
 
+  const imageCanvas = useRef<HTMLCanvasElement | null>(null);
+
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -51,13 +53,20 @@ export default function Halftone({
       canvas.style.height = `${rect.height}px`;
 
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      if (imageCanvas.current) {
+        imageCanvas.current.width = rect.width;
+        imageCanvas.current.height = rect.height;
+        const imgCtx = imageCanvas.current.getContext("2d");
+        imgCtx?.drawImage(img, 0, 0, rect.width, rect.height);
+      }
     };
 
     const render = () => {
       const { width, height } = size.current;
       ctx.clearRect(0, 0, width, height);
 
-      waveTime.current += 1.5; 
+      waveTime.current += 1.5;
       const waveRadius = waveTime.current;
 
       const cols = Math.floor(width / gap);
@@ -74,9 +83,7 @@ export default function Halftone({
 
           const diff = Math.abs(distance - waveRadius);
           const wave =
-            diff < influenceRadius
-              ? 1 - diff / influenceRadius
-              : 0;
+            diff < influenceRadius ? 1 - diff / influenceRadius : 0;
 
           const radius = dotSize * (0.5 + wave * 2);
 
@@ -84,13 +91,16 @@ export default function Halftone({
           ctx.beginPath();
           ctx.arc(x, y, radius, 0, Math.PI * 2);
           ctx.clip();
-          ctx.drawImage(img, 0, 0, width, height);
+
+          if (imageCanvas.current) {
+            ctx.drawImage(imageCanvas.current, 0, 0);
+          }
+
           ctx.restore();
         }
       }
 
-      const maxRadius = Math.hypot(width, height);
-      if (waveRadius > maxRadius) {
+      if (waveRadius > Math.hypot(width, height)) {
         waveTime.current = 0;
       }
 
@@ -98,7 +108,21 @@ export default function Halftone({
     };
 
     img.onload = () => {
+      imageCanvas.current = document.createElement("canvas");
+      imageCanvas.current.width = size.current.width;
+      imageCanvas.current.height = size.current.height;
+
       resizeCanvas();
+
+      const imgCtx = imageCanvas.current.getContext("2d");
+      imgCtx?.drawImage(
+        img,
+        0,
+        0,
+        size.current.width,
+        size.current.height
+      );
+
       render();
     };
 
@@ -120,7 +144,7 @@ export default function Halftone({
           x: e.clientX - rect.left,
           y: e.clientY - rect.top,
         };
-        waveTime.current = 0; 
+        waveTime.current = 0;
       }}
       onMouseLeave={() => {
         mousePos.current = { x: -1000, y: -1000 };

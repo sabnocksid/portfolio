@@ -25,13 +25,13 @@ const WorkExperienceTimeline = () => {
       description:
         "Created graphics, edited videos, and enhanced visual storytelling for projects.",
     },
-    {
-      role: "Associate Graphics Designer",
-      company: "Nbels Academy",
-      duration: "Jun 2023 - Dec 2023",
-      description:
-        "Assisted in web development, database management, and optimizing design workflows.",
-    },
+{
+  role: "Associate Graphics Designer",
+  company: "Nbels Academy",
+  duration: "Jun 2023 - Dec 2023",
+  description:
+    "Designed marketing materials, social media graphics, and brand assets while supporting web design initiatives and streamlining design workflows for enhanced team productivity.",
+}
   ];
 
   return (

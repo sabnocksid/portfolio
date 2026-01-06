@@ -17,11 +17,9 @@ export default function Hero() {
       className="relative w-full h-screen flex flex-col justify-center items-center text-center px-4 overflow-hidden"
     >
       <FlickerGrid
-        rows={51}
-        cols={100}
-        squareSize={15}
+        squareSize={25}
         gap={4}
-        color="bg-primary-medium"
+        color="bg-fg"
         maxOpacity={0.1}
       />
 

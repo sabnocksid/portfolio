@@ -4,84 +4,68 @@ import { motion } from "framer-motion";
 import { useMemo, useState, useEffect } from "react";
 
 interface FlickerGridProps {
-  rows?: number;
-  cols?: number;
-  squareSize?: number;
-  gap?: number;
   color?: string;
   maxOpacity?: number;
+  squareSize?: number;
+  gap?: number;
 }
 
 export default function FlickerGrid({
   color = "bg-primary-medium",
   maxOpacity = 0.1,
+  squareSize = 14,
+  gap = 4,
 }: FlickerGridProps) {
-  const [rows, setRows] = useState(20);
-  const [cols, setCols] = useState(50);
-  const [squareSize, setSquareSize] = useState(10);
-  const [gap, setGap] = useState(4);
+  const [grid, setGrid] = useState<{ rows: number; cols: number } | null>(null);
 
   useEffect(() => {
-    const updateGrid = () => {
+    const calculateGrid = () => {
       const width = window.innerWidth;
       const height = window.innerHeight;
 
-      if (width < 640) {
-        setCols(25);
-        setRows(15);
-        setSquareSize(8);
-        setGap(2);
-      } else if (width < 1024) {
-        setCols(50);
-        setRows(25);
-        setSquareSize(10);
-        setGap(3);
-      } else {
-        setCols(100);
-        setRows(50);
-        setSquareSize(15);
-        setGap(4);
-      }
+      const cols = Math.ceil(width / (squareSize + gap));
+      const rows = Math.ceil(height / (squareSize + gap));
+
+      setGrid({ rows, cols });
     };
 
-    updateGrid();
-    window.addEventListener("resize", updateGrid);
-    return () => window.removeEventListener("resize", updateGrid);
-  }, []);
+    calculateGrid();
+    window.addEventListener("resize", calculateGrid);
+    return () => window.removeEventListener("resize", calculateGrid);
+  }, [squareSize, gap]);
 
+  // ✅ Hook is ALWAYS called
   const squares = useMemo(() => {
-    const arr = [];
-    for (let i = 0; i < rows * cols; i++) {
-      arr.push(Math.random() * maxOpacity);
-    }
-    return arr;
-  }, [rows, cols, maxOpacity]);
+    if (!grid) return [];
+    return Array.from(
+      { length: grid.rows * grid.cols },
+      () => Math.random() * maxOpacity
+    );
+  }, [grid, maxOpacity]);
+
+  // ✅ Conditional render AFTER hooks
+  if (!grid) {
+    return null;
+  }
 
   return (
     <div
       className="absolute inset-0 grid pointer-events-none"
       style={{
-        gridTemplateColumns: `repeat(${cols}, minmax(${squareSize}px, 1fr))`,
-        gridTemplateRows: `repeat(${rows}, minmax(${squareSize}px, 1fr))`,
+        gridTemplateColumns: `repeat(${grid.cols}, ${squareSize}px)`,
+        gridTemplateRows: `repeat(${grid.rows}, ${squareSize}px)`,
         gap: `${gap}px`,
-        width: "100%",
-        height: "100%",
-        maxWidth: "100vw",
-        maxHeight: "100vh",
+        width: "100vw",
+        height: "100vh",
       }}
     >
       {squares.map((opacity, idx) => (
         <motion.div
           key={idx}
           className={`${color} rounded-sm`}
-          style={{ width: "100%", height: "100%", opacity }}
+          style={{ opacity }}
           animate={{
-            opacity: [
-              opacity,
-              Math.random() * maxOpacity,
-              opacity,
-              Math.random() * maxOpacity,
-            ],
+            opacity: [opacity, Math.random() * maxOpacity, opacity],
           }}
           transition={{
             duration: 1 + Math.random(),

@@ -2,7 +2,7 @@
 
 import React from "react";
 
-// Props interfaces
+
 interface AboutMeProps {
   name: string;
   bio: string;
@@ -19,60 +19,106 @@ interface SkillsProps {
   skills: string[];
 }
 
-// Components
+
+const skillIcons: Record<string, string> = {
+  JavaScript: "javascript",
+  TypeScript: "typescript",
+  React: "react",
+  "Next.js": "nextjs",
+  "Node.js": "nodejs",
+  Django: "django",
+  Python: "python",
+  "REST APIs": "postman",
+  PostgreSQL: "postgres",
+  MongoDB: "mongodb",
+  "Tailwind CSS": "tailwind",
+  Git: "git",
+  Figma: "figma",
+  Phostoshop: "photoshop",
+  Illustrator: "illustrator",
+};
+
+
 const AboutMe: React.FC<AboutMeProps> = ({ name, bio }) => (
-  <div>
-    <h2 className="text-primary text-xl md:text-5xl font-bold mb-4">
-      <span className="text-primary-deep">About </span>Me
-    </h2>
-    <p className="text-primary text-md md:text-xl leading-relaxed">
+  <div className="mb-10 md:mb-14">
+    <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-5 text-primary">
+      <span className="text-primary-deep">About</span> Me
+    </h1>
+    <p className="text-base md:text-lg leading-relaxed text-primary text-justify">
       {bio.replace("{name}", name)}
     </p>
   </div>
 );
 
-const Education: React.FC<EducationProps> = ({ degree, university, years, description }) => (
-  <div className="mt-8">
-    <h3 className="text-primary-deep text-md md:text-2xl font-semibold mb-4">
+
+const Education: React.FC<EducationProps> = ({
+  degree,
+  university,
+  years,
+  description,
+}) => (
+  <div className="mb-10 md:mb-14">
+    <h2 className="text-2xl md:text-3xl font-semibold mb-5 text-primary">
       Education
-    </h3>
-    <div className="space-y-1">
-      <p className="text-primary text-base md:text-lg font-medium">{degree}</p>
-      <p className="text-primary-deep text-base">{university}</p>
-      <p className="text-primary-medium text-sm md:text-sm">{years}</p>
-      <p className="text-primary-medium text-base mt-2 leading-relaxed">{description}</p>
+    </h2>
+    <div className="space-y-2">
+      <h3 className="text-xl font-medium text-primary">{degree}</h3>
+      <p className="text-primary">{university}</p>
+      <p className="text-sm text-neutral-gray">{years}</p>
+      <p className="mt-3 text-primary leading-relaxed text-justify">
+        {description}
+      </p>
     </div>
   </div>
 );
+
 
 const Skills: React.FC<SkillsProps> = ({ skills }) => (
-  <div className="mt-8">
-    <h3 className="text-primary-deep text-md md:text-2xl font-semibold mb-4">
+  <div className="mb-10 md:mb-14">
+    <h2 className="text-2xl md:text-3xl font-semibold mb-5 text-primary">
       Familiar Technologies
-    </h3>
+    </h2>
+
     <div className="flex flex-wrap gap-3">
-      {skills.map((skill) => (
-        <span
-          key={skill}
-          className="px-4 py-2 text-xs md:text-sm rounded-full bg-primary-medium text-substitute font-medium"
-        >
-          {skill}
-        </span>
-      ))}
+      {skills.map((skill) => {
+        const icon = skillIcons[skill];
+
+        return (
+          <span
+            key={skill}
+            className="flex items-center gap-2 px-4 py-2 text-xs md:text-sm rounded-full
+                       bg-primary-light/20 dark:bg-primary-dark/20
+                       text-primary
+                       border border-primary-light dark:border-primary-dark
+                       hover:scale-105 transition-all duration-200"
+          >
+            {icon && (
+              <img
+                src={`https://skillicons.dev/icons?i=${icon}`}
+                alt={skill}
+                className="w-3 h-3 md:w-5 md:h-5"
+                loading="lazy"
+              />
+            )}
+            {skill}
+          </span>
+        );
+      })}
     </div>
   </div>
 );
 
-// Profile component
+
+
 export default function Profile() {
   const profileData = {
     name: "Siddhartha Paudel (Sid)",
-    bio: "Hello, my name is {name}. I started my journey in graphic design and UI/UX, shaping how users see and interact with products. Curiosity led me behind the screen to understand systems, logic, and performance and sparked a growing interest in AI and machine learning. Today, I build full-stack applications where thoughtful design meets efficient engineering, while actively exploring intelligent features.",
-    education: {
+    bio: "Hello, my name is {name}. Based in Kathmandu, I design and build full-stack applications where thoughtful UI meets efficient engineering. My journey began in graphic design and UI/UX, later expanding into systems, performance, and a growing interest in AI and machine learning.",    education: {
       degree: "Bachelor’s in Computer Application",
       university: "Tribhuvan University, Nepal",
       years: "2021 – 2025",
-      description: "Focused on software development, system design, and emerging technologies.",
+      description:
+        "Focused on software development, system design, and emerging technologies.",
     },
     skills: [
       "JavaScript",
@@ -87,11 +133,14 @@ export default function Profile() {
       "MongoDB",
       "Tailwind CSS",
       "Git",
+      "Figma",
+      "Phostoshop",
+      "Illustrator",
     ],
   };
 
   return (
-    <section className="px-4 sm:px-6 lg:px-16">
+    <section>
       <AboutMe name={profileData.name} bio={profileData.bio} />
       <Education {...profileData.education} />
       <Skills skills={profileData.skills} />
