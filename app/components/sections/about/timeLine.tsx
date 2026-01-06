@@ -36,6 +36,7 @@ const WorkExperienceTimeline = () => {
 
   return (
     <section className="relative w-full py-10 md:py-24 overflow-hidden">
+
       <Halftone imageSrc="https://res.cloudinary.com/ds4dcblvw/image/upload/v1766891270/sidveriticle_m9ua3s.svg" />
 
       <div className="relative w-full px-[10px] md:max-w-6xl mx-auto md:px-6">
